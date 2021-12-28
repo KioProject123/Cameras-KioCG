@@ -40,7 +40,7 @@ public class Utils {
 		blocksMap.put(Material.COAL_BLOCK, new Color(19, 19, 19));
 		blocksMap.put(Material.EMERALD_BLOCK, new Color(71, 213, 105));
 		blocksMap.put(Material.LAPIS_BLOCK, new Color(42, 80, 139));
-		blocksMap.put(Material.WATER, new Color(67, 101, 165));
+//		blocksMap.put(Material.WATER, new Color(67, 101, 165));
 		blocksMap.put(Material.SEAGRASS, new Color(67, 101, 165));
 		blocksMap.put(Material.BUBBLE_COLUMN, new Color(67, 101, 165));
 		blocksMap.put(Material.TALL_SEAGRASS, new Color(67, 101, 165));
@@ -55,7 +55,7 @@ public class Utils {
 		blocksMap.put(Material.JUNGLE_LEAVES, new Color(60, 141, 24));
 		blocksMap.put(Material.OAK_LEAVES, new Color(49, 111, 21));
 		blocksMap.put(Material.SPRUCE_LEAVES, new Color(55, 91, 56));
-		blocksMap.put(Material.GRASS_PATH, new Color(170, 148, 89));
+		blocksMap.put(Material.DIRT_PATH, new Color(170, 148, 89));
 		blocksMap.put(Material.COARSE_DIRT, new Color(104, 75, 51));
 		blocksMap.put(Material.ANDESITE, new Color(136, 136, 138));
 		blocksMap.put(Material.DIORITE, new Color(181, 181, 181));

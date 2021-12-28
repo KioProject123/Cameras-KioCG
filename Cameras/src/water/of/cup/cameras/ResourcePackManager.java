@@ -6,11 +6,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
+//import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
+//import java.net.URL;
 import java.util.HashMap;
 
 public class ResourcePackManager {
@@ -27,8 +27,10 @@ public class ResourcePackManager {
         }
 
         if(mapDir.listFiles().length == 0) {
-            Bukkit.getLogger().info("No resource pack found, downloading... (this may take a while)");
-            this.downloadResourcePack();
+//            Bukkit.getLogger().info("No resource pack found, downloading... (this may take a while)");
+//            this.downloadResourcePack();
+			Bukkit.getLogger().warning("No resource pack found.");
+			return;
         }
 
         for(File file : mapDir.listFiles()) {
@@ -108,27 +110,27 @@ public class ResourcePackManager {
 		return this.imageHashMap;
 	}
 
-    private void downloadResourcePack() {
-        File destLocation = new File(Camera.getInstance().getDataFolder() + "/resource-packs/1_16_4/");
-        File fileLocation = new File(Camera.getInstance().getDataFolder() + "/resource-packs/1_16_4.zip");
-        try (BufferedInputStream in = new BufferedInputStream(new URL("https://github.com/Cup0fCode/resource-packs/raw/main/1_16_4.zip").openStream());
-            FileOutputStream fileOutputStream = new FileOutputStream(fileLocation)) {
-            byte dataBuffer[] = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                fileOutputStream.write(dataBuffer, 0, bytesRead);
-            }
-
-            if (!destLocation.exists()) {
-                destLocation.mkdir();
-            }
-
-            ZipUtils.unzip(fileLocation, Camera.getInstance().getDataFolder() + "/resource-packs/1_16_4/");
-            fileLocation.delete();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void downloadResourcePack() {
+//        File destLocation = new File(Camera.getInstance().getDataFolder() + "/resource-packs/1_16_4/");
+//        File fileLocation = new File(Camera.getInstance().getDataFolder() + "/resource-packs/1_16_4.zip");
+//        try (BufferedInputStream in = new BufferedInputStream(new URL("https://github.com/Cup0fCode/resource-packs/raw/main/1_16_4.zip").openStream());
+//            FileOutputStream fileOutputStream = new FileOutputStream(fileLocation)) {
+//            byte dataBuffer[] = new byte[1024];
+//            int bytesRead;
+//            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+//                fileOutputStream.write(dataBuffer, 0, bytesRead);
+//            }
+//
+//            if (!destLocation.exists()) {
+//                destLocation.mkdir();
+//            }
+//
+//            ZipUtils.unzip(fileLocation, Camera.getInstance().getDataFolder() + "/resource-packs/1_16_4/");
+//            fileLocation.delete();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 	public boolean isLoaded() {
 		return this.isLoaded;

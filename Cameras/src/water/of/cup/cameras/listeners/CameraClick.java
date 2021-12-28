@@ -1,15 +1,15 @@
 package water.of.cup.cameras.listeners;
 
-import java.util.Map;
+//import java.util.Map;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
+//import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
+//import org.bukkit.inventory.ItemStack;
 
 import water.of.cup.cameras.Camera;
 import water.of.cup.cameras.Picture;
@@ -29,7 +29,7 @@ public class CameraClick implements Listener {
 			return;
 
 		if ((e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-				&& e.getItem().getItemMeta().getDisplayName().equals(ChatColor.DARK_BLUE + "Camera")) {
+				&& e.getItem().getItemMeta().getDisplayName().equals(ChatColor.DARK_BLUE + "一次性拍立得")) {
 
 			boolean usePerms = instance.getConfig().getBoolean("settings.camera.permissions");
 			if(usePerms && !p.hasPermission("cameras.useitem")) return;
@@ -41,22 +41,25 @@ public class CameraClick implements Listener {
 				}
 				return;
 			}
-			if (p.getInventory().contains(Material.PAPER)) { //check to make sure the player has paper
+//			if (p.getInventory().contains(Material.PAPER)) { //check to make sure the player has paper
 				boolean tookPicture = Picture.takePicture(p);
 
 				if(tookPicture) {
 					//remove 1 paper from the player's inventory
-					Map<Integer, ? extends ItemStack> paperHash = p.getInventory().all(Material.PAPER);
-					for (ItemStack item : paperHash.values()) {
-						item.setAmount(item.getAmount() - 1);
-						break;
-					}
+//					Map<Integer, ? extends ItemStack> paperHash = p.getInventory().all(Material.PAPER);
+//					for (ItemStack item : paperHash.values()) {
+//						item.setAmount(item.getAmount() - 1);
+//						break;
+//					}
+
+					//NOW remove 1 camera from the player's inventory
+					e.getItem().subtract();
 				}
-			} else {
-				if(messages) {
-					p.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("settings.messages.nopaper")));
-				}
-			}
+//			} else {
+//				if(messages) {
+//					p.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("settings.messages.nopaper")));
+//				}
+//			}
 			
 		}
 	}

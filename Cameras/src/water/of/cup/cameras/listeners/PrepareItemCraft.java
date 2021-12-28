@@ -21,11 +21,11 @@ public class PrepareItemCraft implements Listener {
         Recipe recipe = event.getRecipe();
         if (recipe == null) return;
         ItemStack result = recipe.getResult();
-        if (result == null) return;
+//        if (result == null) return;
         ItemMeta meta = result.getItemMeta();
         if(meta == null) return;
 
-        if(meta.getDisplayName().equals(ChatColor.DARK_BLUE + "Camera")) {
+        if(meta.getDisplayName().equals(ChatColor.DARK_BLUE + "一次性拍立得")) {
             if(instance.getConfig().getBoolean("settings.camera.permissions")) {
                 for(HumanEntity he : event.getViewers()) {
                     if(he instanceof Player) {

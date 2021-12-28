@@ -27,11 +27,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 
-import water.of.cup.cameras.bstats.Metrics;
+//import water.of.cup.cameras.bstats.Metrics;
 import water.of.cup.cameras.commands.CameraCommands;
 import water.of.cup.cameras.listeners.CameraClick;
 import water.of.cup.cameras.listeners.CameraPlace;
-import water.of.cup.cameras.listeners.PlayerJoin;
+//import water.of.cup.cameras.listeners.PlayerJoin;
 import water.of.cup.cameras.listeners.PrepareItemCraft;
 
 public class Camera extends JavaPlugin {
@@ -51,9 +51,9 @@ public class Camera extends JavaPlugin {
 		this.resourcePackManager.initialize();
 
 		// Resource pack manager test
-		File grassFile = this.resourcePackManager.getTextureByMaterial(Material.GRASS);
-		if(grassFile != null)
-			Bukkit.getLogger().info("Loaded grass texture " + grassFile.getName());
+//		File grassFile = this.resourcePackManager.getTextureByMaterial(Material.GRASS);
+//		if(grassFile != null)
+//			Bukkit.getLogger().info("Loaded grass texture " + grassFile.getName());
 
 		File folder = new File(getDataFolder() + "/maps");
 		File[] listOfFiles = folder.listFiles();
@@ -122,16 +122,16 @@ public class Camera extends JavaPlugin {
 
 		Utils.loadColors();
 		getCommand("takePicture").setExecutor(new CameraCommands());
-		registerListeners(new CameraClick(), new CameraPlace(), new PlayerJoin(), new PrepareItemCraft());
+		registerListeners(new CameraClick(), new CameraPlace(), /* new PlayerJoin(), */ new PrepareItemCraft());
 
 		if(config.getBoolean("settings.camera.recipe.enabled"))
 			addCameraRecipe();
 
 		// Add bStats
-		Metrics metrics = new Metrics(this, 9671);
-		Bukkit.getLogger().info("[Cameras] bStats: " + metrics.isEnabled() + " plugin ver: " + getDescription().getVersion());
-
-		metrics.addCustomChart(new Metrics.SimplePie("plugin_version", () -> getDescription().getVersion()));
+//		Metrics metrics = new Metrics(this, 9671);
+//		Bukkit.getLogger().info("[Cameras] bStats: " + metrics.isEnabled() + " plugin ver: " + getDescription().getVersion());
+//
+//		metrics.addCustomChart(new Metrics.SimplePie("plugin_version", () -> getDescription().getVersion()));
 	}
 
 	@Override
@@ -155,7 +155,7 @@ public class Camera extends JavaPlugin {
 		profile.getProperties().put("textures", new Property("textures",
 				"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0=="));
 		Field profileField = null;
-		cameraMeta.setDisplayName(ChatColor.DARK_BLUE + "Camera");
+		cameraMeta.setDisplayName(ChatColor.DARK_BLUE + "一次性拍立得");
 		try {
 			profileField = cameraMeta.getClass().getDeclaredField("profile");
 			profileField.setAccessible(true);
