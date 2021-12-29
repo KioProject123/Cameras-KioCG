@@ -25,7 +25,7 @@ public class PrepareItemCraft implements Listener {
         ItemMeta meta = result.getItemMeta();
         if(meta == null) return;
 
-        if(meta.getDisplayName().equals(ChatColor.DARK_BLUE + "一次性拍立得")) {
+        if(meta.getDisplayName().equals(ChatColor.BLUE + "一次性拍立得")) {
             if(instance.getConfig().getBoolean("settings.camera.permissions")) {
                 for(HumanEntity he : event.getViewers()) {
                     if(he instanceof Player) {

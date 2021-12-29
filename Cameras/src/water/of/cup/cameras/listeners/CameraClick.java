@@ -29,7 +29,7 @@ public class CameraClick implements Listener {
 			return;
 
 		if ((e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-				&& e.getItem().getItemMeta().getDisplayName().equals(ChatColor.DARK_BLUE + "一次性拍立得")) {
+				&& e.getItem().getItemMeta().getDisplayName().equals(ChatColor.BLUE + "一次性拍立得")) {
 
 			boolean usePerms = instance.getConfig().getBoolean("settings.camera.permissions");
 			if(usePerms && !p.hasPermission("cameras.useitem")) return;

@@ -13,7 +13,7 @@ public class CameraPlace implements Listener {
 
 		ItemStack item = e.getItemInHand();
 		if(!item.hasItemMeta()) return;
-		if (item.getItemMeta().getDisplayName().equals(ChatColor.DARK_BLUE + "一次性拍立得")) {
+		if (item.getItemMeta().getDisplayName().equals(ChatColor.BLUE + "一次性拍立得")) {
 			e.setCancelled(true);
 		}
 	}

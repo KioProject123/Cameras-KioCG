@@ -157,7 +157,7 @@ public class Camera extends JavaPlugin {
 		profile.getProperties().put("textures", new Property("textures",
 				"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0=="));
 		Field profileField = null;
-		cameraMeta.setDisplayName(ChatColor.DARK_BLUE + "一次性拍立得");
+		cameraMeta.setDisplayName(ChatColor.BLUE + "一次性拍立得");
 		try {
 			profileField = cameraMeta.getClass().getDeclaredField("profile");
 			profileField.setAccessible(true);
