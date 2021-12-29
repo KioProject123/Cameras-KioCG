@@ -138,6 +138,8 @@ public class Camera extends JavaPlugin {
 	public void onDisable() {
 		/* Disable all current async tasks */
 		Bukkit.getScheduler().cancelTasks(this);
+
+		Bukkit.removeRecipe(new NamespacedKey(this, "camera"));
 	}
 
 	private void registerListeners(Listener... listeners) {
