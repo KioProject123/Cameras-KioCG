@@ -199,12 +199,12 @@ public class Camera extends JavaPlugin {
 		HashMap<String, Object> defaultConfig = new HashMap<>();
 
 		defaultConfig.put("settings.messages.notready", "&cCameras is still loading, please wait.");
-		defaultConfig.put("settings.messages.delay", "&cPlease wait before taking another picture.");
+//		defaultConfig.put("settings.messages.delay", "&cPlease wait before taking another picture.");
 		defaultConfig.put("settings.messages.invfull", "&cYou can not take a picture with a full inventory.");
-		defaultConfig.put("settings.messages.nopaper", "&cYou must have paper in order to take a picture.");
+//		defaultConfig.put("settings.messages.nopaper", "&cYou must have paper in order to take a picture.");
 		defaultConfig.put("settings.messages.enabled", true);
-		defaultConfig.put("settings.delay.amount", 1000);
-		defaultConfig.put("settings.delay.enabled", true);
+//		defaultConfig.put("settings.delay.amount", 1000);
+//		defaultConfig.put("settings.delay.enabled", true);
 		defaultConfig.put("settings.camera.transparentWater", true);
 		defaultConfig.put("settings.camera.shadows", true);
 		defaultConfig.put("settings.camera.permissions", true);
