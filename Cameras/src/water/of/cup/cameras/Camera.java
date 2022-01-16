@@ -155,7 +155,7 @@ public class Camera extends JavaPlugin {
 		SkullMeta cameraMeta = (SkullMeta) camera.getItemMeta();
 		GameProfile profile = new GameProfile(null, "MHF_Camera");
 		profile.getProperties().put("textures", new Property("textures",
-				"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0=="));
+				"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0="));
 		Field profileField = null;
 		cameraMeta.setDisplayName(ChatColor.BLUE + "一次性拍立得");
 		try {
