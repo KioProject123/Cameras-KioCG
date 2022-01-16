@@ -52,7 +52,7 @@ public class CameraClick implements Listener {
 //						break;
 //					}
 
-					//NOW remove 1 camera from the player's inventory
+					//remove 1 camera from the player's inventory - KioCG
 					e.getItem().subtract();
 				}
 //			} else {
