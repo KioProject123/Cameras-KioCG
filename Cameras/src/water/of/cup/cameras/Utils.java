@@ -2,6 +2,7 @@ package water.of.cup.cameras;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import org.bukkit.block.Block;
 import org.bukkit.map.MapPalette;
 
 public class Utils {
-	static Map<Material, Color> blocksMap = new HashMap<Material, Color>();
+	private static final Map<Material, Color> blocksMap = new EnumMap<>(Material.class);
 
 	public static void loadColors() {
 		// Materials we don't want to use minecraft images for (could be because the

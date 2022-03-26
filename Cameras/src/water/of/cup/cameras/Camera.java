@@ -42,6 +42,8 @@ public class Camera extends JavaPlugin {
 	private File configFile;
 	private FileConfiguration config;
 
+	public NamespacedKey key = new NamespacedKey(this, "camera");
+
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -167,7 +169,6 @@ public class Camera extends JavaPlugin {
 		}
 		camera.setItemMeta(cameraMeta);
 
-		NamespacedKey key = new NamespacedKey(this, "camera");
 		ShapedRecipe recipe = new ShapedRecipe(key, camera);
 
 		ArrayList<String> shapeArr = (ArrayList<String>) config.get("settings.camera.recipe.shape");
