@@ -32,7 +32,7 @@ import water.of.cup.cameras.commands.CameraCommands;
 import water.of.cup.cameras.listeners.CameraClick;
 import water.of.cup.cameras.listeners.CameraPlace;
 //import water.of.cup.cameras.listeners.PlayerJoin;
-import water.of.cup.cameras.listeners.PrepareItemCraft;
+
 
 public class Camera extends JavaPlugin {
 
@@ -124,7 +124,7 @@ public class Camera extends JavaPlugin {
 
 		Utils.loadColors();
 		getCommand("takePicture").setExecutor(new CameraCommands());
-		registerListeners(new CameraClick(), new CameraPlace(), /* new PlayerJoin(), */ new PrepareItemCraft());
+		registerListeners(new CameraClick(), new CameraPlace());
 
 		if(config.getBoolean("settings.camera.recipe.enabled"))
 			addCameraRecipe();
