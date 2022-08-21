@@ -7,10 +7,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
+//import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 //import org.bukkit.inventory.ItemStack;
 
+import org.bukkit.inventory.ItemStack;
+//import org.bukkit.inventory.meta.ItemMeta;
 import water.of.cup.cameras.Camera;
 import water.of.cup.cameras.Picture;
 
@@ -20,16 +22,19 @@ public class CameraClick implements Listener {
 
 	@EventHandler
 	public void cameraClicked(PlayerInteractEvent e) {
+		if (!e.getAction().isRightClick()) {
+			return;
+		}
+
+		final ItemStack itemStack = e.getItem();
+		if(itemStack == null)
+			return;
+
+		if (!itemStack.hasCustomModelData() || itemStack.getCustomModelData() != 14) {
+			return;
+		}
+
 		Player p = e.getPlayer();
-
-		if(e.getItem() == null)
-			return;
-
-		if(e.getItem().getItemMeta() == null)
-			return;
-
-		if ((e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-				&& e.getItem().getItemMeta().getDisplayName().equals(ChatColor.BLUE + "一次性拍立得")) {
 
 			boolean usePerms = instance.getConfig().getBoolean("settings.camera.permissions");
 			if(usePerms && !p.hasPermission("cameras.useitem")) return;
@@ -53,7 +58,7 @@ public class CameraClick implements Listener {
 //					}
 
 					//remove 1 camera from the player's inventory - KioCG
-					e.getItem().subtract();
+					itemStack.subtract();
 				}
 //			} else {
 //				if(messages) {
@@ -61,6 +66,5 @@ public class CameraClick implements Listener {
 //				}
 //			}
 			
-		}
 	}
 }

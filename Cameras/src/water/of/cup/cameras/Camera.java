@@ -167,6 +167,7 @@ public class Camera extends JavaPlugin {
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
 			e.printStackTrace();
 		}
+		cameraMeta.setCustomModelData(14); // KioCG
 		camera.setItemMeta(cameraMeta);
 
 		ShapedRecipe recipe = new ShapedRecipe(key, camera);
