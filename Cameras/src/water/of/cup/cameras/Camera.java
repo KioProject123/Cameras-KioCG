@@ -8,8 +8,10 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import io.papermc.paper.event.server.ServerResourcesReloadedEvent;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,7 +36,7 @@ import water.of.cup.cameras.listeners.CameraPlace;
 //import water.of.cup.cameras.listeners.PlayerJoin;
 
 
-public class Camera extends JavaPlugin {
+public class Camera extends JavaPlugin implements Listener {
 
 	private static Camera instance;
 	List<Integer> mapIDsNotToRender = new ArrayList<>();
@@ -124,7 +126,7 @@ public class Camera extends JavaPlugin {
 
 		Utils.loadColors();
 		getCommand("takePicture").setExecutor(new CameraCommands());
-		registerListeners(new CameraClick(), new CameraPlace());
+		registerListeners(new CameraClick(), new CameraPlace(), this /* 兼容数据包重载 */ );
 
 		if(config.getBoolean("settings.camera.recipe.enabled"))
 			addCameraRecipe();
@@ -150,6 +152,12 @@ public class Camera extends JavaPlugin {
 
 	public static Camera getInstance() {
 		return instance;
+	}
+
+	// 兼容数据包重载
+	@EventHandler
+	public void onServerResourcesReloaded(final ServerResourcesReloadedEvent e) {
+		addCameraRecipe();
 	}
 
 	public void addCameraRecipe() {
