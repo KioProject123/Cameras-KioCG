@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
+//import java.lang.reflect.Field;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import io.papermc.paper.event.server.ServerResourcesReloadedEvent;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -26,8 +28,8 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
+//import com.mojang.authlib.GameProfile;
+//import com.mojang.authlib.properties.Property;
 
 //import water.of.cup.cameras.bstats.Metrics;
 import water.of.cup.cameras.commands.CameraCommands;
@@ -157,24 +159,19 @@ public class Camera extends JavaPlugin implements Listener {
 	// 兼容数据包重载
 	@EventHandler
 	public void onServerResourcesReloaded(final ServerResourcesReloadedEvent e) {
-		addCameraRecipe();
+		Bukkit.getScheduler().runTask(this, this::addCameraRecipe);
 	}
 
 	public void addCameraRecipe() {
 		ItemStack camera = new ItemStack(Material.PLAYER_HEAD);
 		SkullMeta cameraMeta = (SkullMeta) camera.getItemMeta();
-		GameProfile profile = new GameProfile(null, "MHF_Camera");
-		profile.getProperties().put("textures", new Property("textures",
-				"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0="));
-		Field profileField = null;
+		PlayerProfile profile = Bukkit.createProfile(null, "MHF_Camera");
+		profile.setProperty(new ProfileProperty("textures",
+												"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZiNWVlZTQwYzNkZDY2ODNjZWM4ZGQxYzZjM2ZjMWIxZjAxMzcxNzg2NjNkNzYxMDljZmUxMmVkN2JmMjc4ZSJ9fX0="));
+		cameraMeta.setPlayerProfile(profile);
+
 		cameraMeta.setDisplayName(ChatColor.BLUE + "一次性拍立得");
-		try {
-			profileField = cameraMeta.getClass().getDeclaredField("profile");
-			profileField.setAccessible(true);
-			profileField.set(cameraMeta, profile);
-		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-			e.printStackTrace();
-		}
+
 		cameraMeta.setCustomModelData(14); // KioCG
 		camera.setItemMeta(cameraMeta);
 
