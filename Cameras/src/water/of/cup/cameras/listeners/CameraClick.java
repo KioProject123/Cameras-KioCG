@@ -1,70 +1,59 @@
 package water.of.cup.cameras.listeners;
 
-//import java.util.Map;
-
 import org.bukkit.ChatColor;
-//import org.bukkit.Material;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-//import org.bukkit.event.block.Action;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-//import org.bukkit.inventory.ItemStack;
-
 import org.bukkit.inventory.ItemStack;
-//import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import water.of.cup.cameras.Camera;
 import water.of.cup.cameras.Picture;
 
+import java.util.Objects;
+
 public class CameraClick implements Listener {
+    private final Camera instance = Camera.getInstance();
 
-	private Camera instance = Camera.getInstance();
+    @EventHandler
+    public void cameraClicked(final PlayerInteractEvent e) {
+        final Action action = e.getAction();
+        if (action != Action.RIGHT_CLICK_AIR) {
+            if (action != Action.RIGHT_CLICK_BLOCK || Objects.requireNonNull(e.getClickedBlock()).getType().isInteractable()) {
+                return;
+            }
+        }
 
-	@EventHandler
-	public void cameraClicked(PlayerInteractEvent e) {
-		if (!e.getAction().isRightClick()) {
-			return;
-		}
+        final ItemStack itemStack = e.getItem();
+        if (itemStack == null || itemStack.getType() != Material.PLAYER_HEAD) {
+            return;
+        }
 
-		final ItemStack itemStack = e.getItem();
-		if(itemStack == null)
-			return;
+        final ItemMeta itemMeta = itemStack.getItemMeta();
+        if (!itemMeta.hasCustomModelData() || itemMeta.getCustomModelData() != 14) {
+            return;
+        }
 
-		if (!itemStack.hasCustomModelData() || itemStack.getCustomModelData() != 14) {
-			return;
-		}
+        e.setCancelled(true);
 
-		Player p = e.getPlayer();
+        final Player player = e.getPlayer();
 
-			boolean usePerms = instance.getConfig().getBoolean("settings.camera.permissions");
-			if(usePerms && !p.hasPermission("cameras.useitem")) return;
+        if (instance.getConfig().getBoolean("settings.camera.permissions")
+            && !player.hasPermission("cameras.useitem")) {
+            return;
+        }
 
-			boolean messages = instance.getConfig().getBoolean("settings.messages.enabled");
-			if (p.getInventory().firstEmpty() == -1) { //check to make sure there is room in the inventory for the map
-				if(messages) {
-					p.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("settings.messages.invfull")));
-				}
-				return;
-			}
-//			if (p.getInventory().contains(Material.PAPER)) { //check to make sure the player has paper
-				boolean tookPicture = Picture.takePicture(p);
+        if (player.getInventory().firstEmpty() == -1) {
+            if (instance.getConfig().getBoolean("settings.messages.enabled")) {
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(instance.getConfig().getString("settings.messages.invfull"))));
+            }
+            return;
+        }
 
-				if(tookPicture) {
-					//remove 1 paper from the player's inventory
-//					Map<Integer, ? extends ItemStack> paperHash = p.getInventory().all(Material.PAPER);
-//					for (ItemStack item : paperHash.values()) {
-//						item.setAmount(item.getAmount() - 1);
-//						break;
-//					}
-
-					//remove 1 camera from the player's inventory - KioCG
-					itemStack.subtract();
-				}
-//			} else {
-//				if(messages) {
-//					p.sendMessage(ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("settings.messages.nopaper")));
-//				}
-//			}
-			
-	}
+        if (Picture.takePicture(player)) {
+            itemStack.subtract();
+        }
+    }
 }

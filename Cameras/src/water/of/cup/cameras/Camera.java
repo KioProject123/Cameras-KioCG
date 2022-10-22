@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-//import java.lang.reflect.Field;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -28,15 +27,8 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.java.JavaPlugin;
 
-//import com.mojang.authlib.GameProfile;
-//import com.mojang.authlib.properties.Property;
-
-//import water.of.cup.cameras.bstats.Metrics;
 import water.of.cup.cameras.commands.CameraCommands;
 import water.of.cup.cameras.listeners.CameraClick;
-import water.of.cup.cameras.listeners.CameraPlace;
-//import water.of.cup.cameras.listeners.PlayerJoin;
-
 
 public class Camera extends JavaPlugin implements Listener {
 
@@ -55,11 +47,6 @@ public class Camera extends JavaPlugin implements Listener {
 		loadConfig();
 
 		this.resourcePackManager.initialize();
-
-		// Resource pack manager test
-//		File grassFile = this.resourcePackManager.getTextureByMaterial(Material.GRASS);
-//		if(grassFile != null)
-//			Bukkit.getLogger().info("Loaded grass texture " + grassFile.getName());
 
 		File folder = new File(getDataFolder() + "/maps");
 		File[] listOfFiles = folder.listFiles();
@@ -128,16 +115,10 @@ public class Camera extends JavaPlugin implements Listener {
 
 		Utils.loadColors();
 		getCommand("takePicture").setExecutor(new CameraCommands());
-		registerListeners(new CameraClick(), new CameraPlace(), this /* 兼容数据包重载 */ );
+		registerListeners(new CameraClick(), this /* 兼容数据包重载 */ );
 
 		if(config.getBoolean("settings.camera.recipe.enabled"))
 			addCameraRecipe();
-
-		// Add bStats
-//		Metrics metrics = new Metrics(this, 9671);
-//		Bukkit.getLogger().info("[Cameras] bStats: " + metrics.isEnabled() + " plugin ver: " + getDescription().getVersion());
-//
-//		metrics.addCustomChart(new Metrics.SimplePie("plugin_version", () -> getDescription().getVersion()));
 	}
 
 	@Override
@@ -206,12 +187,8 @@ public class Camera extends JavaPlugin implements Listener {
 		HashMap<String, Object> defaultConfig = new HashMap<>();
 
 		defaultConfig.put("settings.messages.notready", "&cCameras is still loading, please wait.");
-//		defaultConfig.put("settings.messages.delay", "&cPlease wait before taking another picture.");
 		defaultConfig.put("settings.messages.invfull", "&cYou can not take a picture with a full inventory.");
-//		defaultConfig.put("settings.messages.nopaper", "&cYou must have paper in order to take a picture.");
 		defaultConfig.put("settings.messages.enabled", true);
-//		defaultConfig.put("settings.delay.amount", 1000);
-//		defaultConfig.put("settings.delay.enabled", true);
 		defaultConfig.put("settings.camera.transparentWater", true);
 		defaultConfig.put("settings.camera.shadows", true);
 		defaultConfig.put("settings.camera.permissions", true);
