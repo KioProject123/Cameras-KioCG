@@ -2,6 +2,7 @@ package water.of.cup.cameras.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -54,6 +55,7 @@ public class CameraClick implements Listener {
 
         if (Picture.takePicture(player)) {
             itemStack.subtract();
+            player.playSound(player.getLocation(), Sound.BLOCK_PISTON_EXTEND, 0.5F, 2.0F);
         }
     }
 }
