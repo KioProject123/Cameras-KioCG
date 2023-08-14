@@ -1,39 +1,33 @@
 package water.of.cup.cameras;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
-import java.util.regex.Pattern;
-
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import io.papermc.paper.event.server.ServerResourcesReloadedEvent;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.EventHandler;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.map.MapCanvas;
-import org.bukkit.map.MapRenderer;
-import org.bukkit.map.MapView;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import water.of.cup.cameras.commands.CameraCommands;
 import water.of.cup.cameras.listeners.CameraClick;
+import water.of.cup.cameras.listeners.MapInitialize;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class Camera extends JavaPlugin implements Listener {
 
 	private static Camera instance;
-	List<Integer> mapIDsNotToRender = new ArrayList<>();
 	ResourcePackManager resourcePackManager = new ResourcePackManager();
 	private File configFile;
 	private FileConfiguration config;
@@ -48,74 +42,9 @@ public class Camera extends JavaPlugin implements Listener {
 
 		this.resourcePackManager.initialize();
 
-		File folder = new File(getDataFolder() + "/maps");
-		File[] listOfFiles = folder.listFiles();
-
-		for (File file : listOfFiles) {
-			if (file.isFile()) {
-				int mapId = Integer.parseInt(file.getName().split("_")[1].split(Pattern.quote("."))[0]);
-				try {
-					BufferedReader br = new BufferedReader(new FileReader(file));
-					String encodedData = br.readLine();
-
-					MapView mapView = Bukkit.getMap(Integer.valueOf(mapId));
-
-					mapView.setTrackingPosition(false);
-					for(MapRenderer renderer : mapView.getRenderers())
-						mapView.removeRenderer(renderer);
-
-					mapView.addRenderer(new MapRenderer() {
-						@Override
-						public void render(MapView mapViewNew, MapCanvas mapCanvas, Player player) {
-							if(!mapIDsNotToRender.contains(mapId)) {
-								mapIDsNotToRender.add(mapId);
-
-								int x = 0;
-								int y = 0;
-								int skipsLeft = 0;
-								byte colorByte = 0;
-								for(int index = 0; index < encodedData.length(); index++) {
-									if(skipsLeft == 0) {
-										int end = index;
-
-										while(encodedData.charAt(end) != ',')
-											end++;
-
-										String str = encodedData.substring(index, end);
-										index = end;
-
-										colorByte = Byte.parseByte(str.substring(0, str.indexOf('_')));
-
-										skipsLeft = Integer.parseInt(str.substring(str.indexOf('_') + 1));
-
-									}
-
-									while(skipsLeft != 0) {
-										mapCanvas.setPixel(x, y, colorByte);
-
-										y++;
-										if(y == 128) {
-											y = 0;
-											x++;
-										}
-
-										skipsLeft -= 1;
-									}
-								}
-							}
-						}
-					});
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			}
-		}
-
 		Utils.loadColors();
 		getCommand("takePicture").setExecutor(new CameraCommands());
-		registerListeners(new CameraClick(), this /* 兼容数据包重载 */ );
+		registerListeners(new CameraClick(), new MapInitialize(), this /* 兼容数据包重载 */);
 
 		if(config.getBoolean("settings.camera.recipe.enabled"))
 			addCameraRecipe();
