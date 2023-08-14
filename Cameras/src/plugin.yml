@@ -1,9 +1,0 @@
-main: water.of.cup.cameras.Camera
-name: Cameras-KioCG
-version: '1.05'
-description: Take Pictures.
-author: Nicholas Kopiwoda
-api-version: 1.14
-commands:
-  takepicture:
-    description: take a picture
