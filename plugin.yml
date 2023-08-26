@@ -7,3 +7,4 @@ api-version: 1.14
 commands:
   takepicture:
     description: take a picture
+    permission: cameras.command
