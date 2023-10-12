@@ -33,7 +33,7 @@ public class CameraClick implements Listener {
         }
 
         final ItemMeta itemMeta = itemStack.getItemMeta();
-        if (!itemMeta.hasCustomModelData() || itemMeta.getCustomModelData() != 14) {
+        if (!itemMeta.hasCustomModelData() || itemMeta.getCustomModelData() != 6) {
             return;
         }
 

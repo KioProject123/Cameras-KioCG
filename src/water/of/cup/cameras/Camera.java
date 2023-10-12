@@ -82,7 +82,7 @@ public class Camera extends JavaPlugin implements Listener {
 
 		cameraMeta.setDisplayName(ChatColor.BLUE + "一次性拍立得");
 
-		cameraMeta.setCustomModelData(14); // KioCG
+		cameraMeta.setCustomModelData(6); // KioCG
 		camera.setItemMeta(cameraMeta);
 
 		ShapedRecipe recipe = new ShapedRecipe(key, camera);
